@@ -8,7 +8,8 @@ var gulpRename = require('gulp-rename');
 // Exports:
 module.exports = {
   less: gulpLess,
-  lessTask: lessTask
+  lessTask: lessTask,
+  watch: true
 };
 
 function lessTask (options) {
