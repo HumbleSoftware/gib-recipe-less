@@ -16,6 +16,11 @@ function lessTask (options) {
 
   options = config(options);
 
+  function error (e) {
+    console.log(e.message);
+    this.emit('end');
+  }
+
   // Task:
   return function () {
 
@@ -26,7 +31,9 @@ function lessTask (options) {
     return gulp.src(options.src)
       .pipe(gulpLess({
         // TODO less options
-      }))
+        })
+      )
+      .on('error', error)
       .pipe(gulpRename(filename))
       .pipe(gulp.dest(dest));
   };
