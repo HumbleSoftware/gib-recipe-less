@@ -46,7 +46,8 @@ function lessTask (options) {
       )
       .on('error', error)
       .pipe(gulpRename(filename))
-      .pipe(gulp.dest(dest));
+      .pipe(gulp.dest(dest))
+      .pipe(bus.refreshStream());
   };
 }
 
