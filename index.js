@@ -1,25 +1,26 @@
 'use strict';
 
 // Modules:
+var pkg        = require('./package.json');
 var path       = require('path');
 var gulpLess   = require('gulp-less');
 var gulpRename = require('gulp-rename');
+
+// Locals:
+var bus = null;
 
 // Exports:
 module.exports = {
   less: gulpLess,
   lessTask: lessTask,
+  register: register,
   watch: true
 };
+
 
 function lessTask (options) {
 
   options = config(options);
-
-  function error (e) {
-    console.log(e.message);
-    this.emit('end');
-  }
 
   // Task:
   return function () {
@@ -27,6 +28,16 @@ function lessTask (options) {
     var gulp     = this;
     var dest     = path.dirname(options.dest);
     var filename = path.basename(options.dest);
+
+    function error (e) {
+      var error = e.message;
+      if (bus) {
+        bus.error.call(this, (options.gibTaskName || pkg.name), error);
+      } else {
+        console.log(error);
+        this.emit('end');
+      }
+    }
 
     return gulp.src(options.src)
       .pipe(gulpLess({
@@ -49,4 +60,8 @@ function config (options) {
   if (!options.src) throw new Error('less-recipe `options.src` required');
 
   return options;
+}
+
+function register (b) {
+  bus = b;
 }
