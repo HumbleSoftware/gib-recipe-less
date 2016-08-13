@@ -55,7 +55,7 @@ function config (options) {
 
   // Defaults:
   options = options || {};
-  options.dest = './build/styles-bundle.css';
+  options.dest = options.dest || './build/styles-bundle.css';
 
   // Assertions:
   if (!options.src) throw new Error('less-recipe `options.src` required');
