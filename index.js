@@ -40,10 +40,7 @@ function lessTask (options) {
     }
 
     return gulp.src(options.src)
-      .pipe(gulpLess({
-        // TODO less options
-        })
-      )
+      .pipe(gulpLess(options.less))
       .on('error', error)
       .pipe(gulpRename(filename))
       .pipe(gulp.dest(dest))
