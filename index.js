@@ -56,6 +56,7 @@ function config (options) {
 
   // Assertions:
   if (!options.src) throw new Error('less-recipe `options.src` required');
+  if (!options.dest) throw new Error('less-recipe `options.dest` required');
 
   return options;
 }
